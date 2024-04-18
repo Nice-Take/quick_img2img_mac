@@ -1,0 +1,5 @@
+*.jpg
+*.png
+models/
+generated/
+*.safetensors

@@ -1,7 +1,9 @@
 import torch
-from diffusers import StableDiffusionXLImg2ImgPipeline
-from diffusers.utils import load_image
+from diffusers import StableDiffusionXLPipeline, StableDiffusionXLImg2ImgPipeline, AutoPipelineForText2Image, StableDiffusionUpscalePipeline
+from PIL import Image
+from diffusers.utils import load_image, make_image_grid
 import time
+import upscale
 
 
 img2img = StableDiffusionXLImg2ImgPipeline.from_pretrained(
@@ -13,7 +15,7 @@ img2img = StableDiffusionXLImg2ImgPipeline.from_pretrained(
           ).to("cuda")
 
 
-def generate(inspiration_img: str, prompt: str, strength: float = .85, seed: int = 0, steps: int = 50):
+def generate(inspiration_img: str, prompt: str, seed: int = 0, steps: int = 50):
     generator = torch.Generator("cuda").manual_seed(seed)
 
     orig_name = inspiration_img
@@ -25,7 +27,7 @@ def generate(inspiration_img: str, prompt: str, strength: float = .85, seed: int
     refine_prompt = prompt + "bloom, flare, 8k, dslr, depth of field, high detail, detailed"
     image = img2img(prompt=refine_prompt,
                     prompt2=prompt,
-                    strength=strength,
+                    strength=.88,
                     generator=generator,
                     image=inspiration_img,
                     negative_prompt=neg_prompt,
@@ -33,3 +35,7 @@ def generate(inspiration_img: str, prompt: str, strength: float = .85, seed: int
 
     save_name = f"{orig_name}_{round(time.time())}.png"
     image.save(save_name)
+
+    #upscale.create(prompt=refine_prompt, image_name=save_name)
+
+generate("./sample_1024x1024.png", "amber glass bottle with label dark wood foreground in a night time scene", seed=99)
