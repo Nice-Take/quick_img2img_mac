@@ -30,6 +30,6 @@ prompts = [
 start_time = time.time()
 i = 0
 for prompt in prompts:
-    txt2img.generate(prompt+photographic_tags, 0, 20)
+    txt2img.generate("vitamin bottle indoor, sunlight, tabletop"+photographic_tags, 0, 20)
     i += 1
 print(f"[Time Taken: {round(time.time()) - start_time}]")

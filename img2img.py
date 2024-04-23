@@ -15,7 +15,7 @@ img2img = StableDiffusionXLImg2ImgPipeline.from_pretrained(
           ).to("cuda")
 
 
-def generate(inspiration_img: str, prompt: str, seed: int = 0, steps: int = 50):
+def generate(inspiration_img: str, prompt: str, strength: float = 0.75, seed: int = 0, steps: int = 50):
     generator = torch.Generator("cuda").manual_seed(seed)
 
     orig_name = inspiration_img
@@ -25,9 +25,9 @@ def generate(inspiration_img: str, prompt: str, seed: int = 0, steps: int = 50):
     inspiration_img = load_image(inspiration_img)
 
     refine_prompt = prompt + "bloom, flare, 8k, dslr, depth of field, high detail, detailed"
-    image = img2img(prompt=refine_prompt,
-                    prompt2=prompt,
-                    strength=.88,
+    image = img2img(prompt=prompt,
+                    prompt2=refine_prompt,
+                    strength=strength,
                     generator=generator,
                     image=inspiration_img,
                     negative_prompt=neg_prompt,
@@ -38,4 +38,17 @@ def generate(inspiration_img: str, prompt: str, seed: int = 0, steps: int = 50):
 
     #upscale.create(prompt=refine_prompt, image_name=save_name)
 
-generate("./sample_1024x1024.png", "amber glass bottle with label dark wood foreground in a night time scene", seed=99)
+# insp = "./sample4_1024.png"
+# insp_mask = "./sample4_1024_mask.png"
+# prompt = "kitchen countertop, minimalism, bright, window, sunlight"
+# iters = 1
+
+# start_time = time.time()
+# i = 0
+# while i < iters:
+#     generate(inspiration_img=insp, inspiration_mask_img=insp_mask, prompt=prompt, strength=1, seed=i)
+#     i += 1
+
+# print("\n[  TIME  STATS  ]")
+# print(f"| Total: {round(time.time() - start_time)} sec |")
+# print(f"| s/Img: {round(round(time.time() - start_time) / iters)} sec |\n")

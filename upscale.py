@@ -60,3 +60,6 @@ def create(prompt: str, image_name: str):
 
     upscaled_image = pipeline(prompt=prompt, image=low_res_img).images[0]
     upscaled_image.save(f"{image_name}_HR_2.png")
+
+
+#create("vitamin bottle in kitchen", "T:/MG NT Dropbox/Working Jobs/TMP/generated/1713825937.png")
