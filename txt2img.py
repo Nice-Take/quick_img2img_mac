@@ -41,7 +41,7 @@ def generate(prompt: str, seed: int=0, steps: int=50) -> Image:
                     num_inference_steps=inf_steps,
                     ).images[0] # refining noise
 
-    refine_prompt = prompt + "bloom, flare, 8k, dslr, depth of field, high detail, detailed"
+    refine_prompt = prompt + "bloom, flare, 8k, dslr, high detail, detailed"
     image = refiner(prompt=refine_prompt,
                     image=image,
                     negative_prompt=neg_prompt,
@@ -49,6 +49,8 @@ def generate(prompt: str, seed: int=0, steps: int=50) -> Image:
 
     #upscale.create(prompt=refine_prompt, image_name=save_name)
 
-    #save_name = f"./generated/{round(time.time())}.png"
-    #image.save(save_name)
+    save_name = f"./generated/{round(time.time())}.png"
+    image.save(save_name)
     return image
+
+#generate("pomegranate on a farmhouse kitchen counter top in a bowl")

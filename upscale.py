@@ -51,6 +51,10 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 
 def create(prompt: str, image_name: str):
+    """
+    Takes a prompt as one param and the image name as the other.
+    Saves the upscaled image with a '_HR' tag in the directory of origin.
+    """
     model_id = "stabilityai/stable-diffusion-x4-upscaler"
     pipeline = StableDiffusionUpscalePipeline.from_pretrained(model_id, torch_dtype=torch.float16)
     pipeline = pipeline.to("cuda")
@@ -59,7 +63,7 @@ def create(prompt: str, image_name: str):
     low_res_img = img.resize((512, 512))
 
     upscaled_image = pipeline(prompt=prompt, image=low_res_img).images[0]
-    upscaled_image.save(f"{image_name}_HR_2.png")
+    upscaled_image.save(f"{image_name}_HR.png")
 
 
 #create("vitamin bottle in kitchen", "T:/MG NT Dropbox/Working Jobs/TMP/generated/1713825937.png")

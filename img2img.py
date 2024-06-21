@@ -38,15 +38,15 @@ def generate(inspiration_img: str, prompt: str, strength: float = 0.75, seed: in
 
     #upscale.create(prompt=refine_prompt, image_name=save_name)
 
-# insp = "./sample4_1024.png"
-# insp_mask = "./sample4_1024_mask.png"
-# prompt = "kitchen countertop, minimalism, bright, window, sunlight"
+# insp = "./sample10_1024.png"
+# insp_mask = "./sample10_1024_mask.png"
+# prompt = "green tea leaves on kitchen countertop, minimalism, bright, window, sunlight"
 # iters = 1
 
 # start_time = time.time()
 # i = 0
 # while i < iters:
-#     generate(inspiration_img=insp, inspiration_mask_img=insp_mask, prompt=prompt, strength=1, seed=i)
+#     generate(inspiration_img=insp, prompt=prompt, strength=1, seed=i)
 #     i += 1
 
 # print("\n[  TIME  STATS  ]")
